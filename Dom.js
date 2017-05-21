@@ -33,5 +33,17 @@ Reimu.Dom = {
                 jq_ctx.css('width', 'inherit');
             }
         }
+    },
+
+    SetEnabled: function (jq_ctx_array, bool) {
+        if (bool)
+            for (let i in jq_ctx_array) {
+                jq_ctx_array[i].prop('disabled', false);
+                jq_ctx_array[i].removeProp('disabled');
+            }
+        else
+            for (let i in jq_ctx_array) {
+                jq_ctx_array[i].prop('disabled', true);
+            }
     }
 };
