@@ -26,7 +26,7 @@ Reimu.Inet = {
 
             for (let p in sarray) {
                 if (sarray[p] === '') {
-                    for (let j=0; j<(8-sarray.size); j++)
+                    for (let j=0; j<(8-sarray.length); j++)
                         ret.push(0x0000);
                 }
                 ret.push(parseInt(sarray[p], 16));

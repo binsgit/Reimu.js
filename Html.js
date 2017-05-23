@@ -39,5 +39,33 @@ Reimu.Html = {
 
             return ret;
         }
+    },
+
+
+    Renderer: function (ctx) {
+        let ret = '';
+
+        for (let dom in ctx) {
+            if (ctx.hasOwnProperty(dom)) {
+                let dom_spec = ctx[dom];
+                ret += '<' + dom;
+
+                for (let dom_spec_attr in dom_spec) {
+                    if (dom_spec.hasOwnProperty(dom_spec_attr) && dom_spec[dom_spec_attr] != dom_spec.__Next) {
+                        ret += ' ' + dom_spec_attr + '="' + dom_spec[dom_spec_attr] + '"';
+                    }
+                }
+
+                ret += '>';
+
+                if (dom_spec.__Next)
+                    ret += Reimu.Html.Renderer(dom_spec.__Next);
+
+                ret += '</' + dom + '>';
+            }
+        }
+
+        return ret;
     }
+
 };
