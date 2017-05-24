@@ -45,14 +45,15 @@ Reimu.Html = {
     Renderer: function (ctx) {
         let ret = '';
 
-        if (ctx.constructor == Array) {
-
-        } else {
+        if (ctx.constructor !== Array) {
             ctx = [ctx];
         }
 
         for (let p in ctx) {
             let thisctx = ctx[p];
+
+            if (thisctx.constructor == String)
+                return ctx;
 
             for (let dom in thisctx) {
 
