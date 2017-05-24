@@ -45,23 +45,33 @@ Reimu.Html = {
     Renderer: function (ctx) {
         let ret = '';
 
-        for (let dom in ctx) {
-            if (ctx.hasOwnProperty(dom)) {
-                let dom_spec = ctx[dom];
-                ret += '<' + dom;
+        if (ctx.constructor == Array) {
 
-                for (let dom_spec_attr in dom_spec) {
-                    if (dom_spec.hasOwnProperty(dom_spec_attr) && dom_spec[dom_spec_attr] != dom_spec.__Next) {
-                        ret += ' ' + dom_spec_attr + '="' + dom_spec[dom_spec_attr] + '"';
+        } else {
+            ctx = [ctx];
+        }
+
+        for (let p in ctx) {
+            let thisctx = ctx[p];
+
+            for (let dom in thisctx) {
+
+                if (thisctx.hasOwnProperty(dom)) {
+                    let dom_spec = thisctx[dom];
+                    ret += '<' + dom;
+
+                    for (let dom_spec_attr in dom_spec) {
+                        if (dom_spec.hasOwnProperty(dom_spec_attr) && dom_spec[dom_spec_attr] != dom_spec.__Next) {
+                            ret += ' ' + dom_spec_attr + '="' + dom_spec[dom_spec_attr] + '"';
+                        }
                     }
+
+                    ret += '>';
+                    if (dom_spec.__Next)
+                        ret += Reimu.Html.Renderer(dom_spec.__Next);
+
+                    ret += '</' + dom + '>';
                 }
-
-                ret += '>';
-
-                if (dom_spec.__Next)
-                    ret += Reimu.Html.Renderer(dom_spec.__Next);
-
-                ret += '</' + dom + '>';
             }
         }
 

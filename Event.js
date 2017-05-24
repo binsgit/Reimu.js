@@ -10,6 +10,7 @@ Reimu.Event = {
         if(dom_event_ctx.keyCode === keycode){
             dom_event_ctx.preventDefault();
             func();
+
         }
     }
 };
