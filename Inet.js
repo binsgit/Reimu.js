@@ -6,6 +6,22 @@ const AF_INET = 2;
 const AF_INET6 = 10;
 
 Reimu.Inet = {
+    isValidV4Addr: function (cp) {
+        let sarray = cp.split('.');
+
+        if (sarray.length !== 4)
+            return false;
+
+        for (let p in sarray) {
+            let digit = sarray[p];
+
+            if (!Reimu.Algorithm.isInt(digit) || digit < 0 || digit > 255)
+                return false;
+        }
+
+        return true;
+    },
+
     inet_pton: function (af, cp) {
         let ret = [];
 
